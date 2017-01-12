@@ -3,6 +3,17 @@
 #define TAG_PLAYER_TEXT 0xC0000008
 #define TAG_TEXT 0xC000000C
 
+#define TextDrawTextColor TextDrawColor
+#define TextDrawOutlineAndShadowColor TextDrawBackgroundColor
+#define TextDrawSetTextColor TextDrawColor
+#define TextDrawSetOutlineAndShadowColor TextDrawBackgroundColor
+
+#define PlayerTextDrawTextColor PlayerTextDrawColor
+#define PlayerTextDrawOutlineAndShadowColor PlayerTextDrawBackgroundColor
+#define PlayerTextDrawSetTextColor PlayerTextDrawColor
+#define PlayerTextDrawSetOutlineAndShadowColor PlayerTextDrawBackgroundColor
+
+
 #define ShowPlayerTextDrawForPlayer ShowTextDrawForPlayer
 #define HidePlayerTextDrawForPlayer HideTextDrawForPlayer
 
@@ -48,8 +59,6 @@ stock ShowTextDrawForAll(const Text:textDraw, const timeToDisplayInMs = 0)
 	{
 		SetTimerEx("HideTextDrawForAllPub", timeToDisplayInMs, false, "d", textDraw);
 	}
-
-	return true;
 }
 
 stock HideTextDrawForPlayer(const playerid, const {PlayerText,Text}:textDraw, const timeToWaitBeforeHidingInMs = 0)
@@ -117,4 +126,26 @@ forward HideTextDrawForAllPub(const Text:textDraw);
 public HideTextDrawForAllPub(const Text:textDraw)
 {
 	HideTextDrawForAll(Text:textDraw);
+}
+
+stock reshowTextDrawForAll(Text:textDraw)
+{
+	TextDrawHideForAll(text);
+	TextDrawShowForAll(text);
+}
+
+stock reshowTextDrawForPlayer(playerid, {Text,PlayerText}:textDraw)
+{
+	new textDrawTag = tagof(textDraw);
+
+	if(textDrawTag == TAG_TEXT)
+	{
+		TextDrawHideForPlayer(playerid, text);
+		TextDrawShowForPlayer(playerid, text);
+	}
+	else if(textDrawTag == TAG_PLAYER_TEXT)
+	{
+		PlayerTextDrawHide(playerid, textDraw);	
+		PlayerTextDrawShow(playerid, textDraw);	
+	}
 }
