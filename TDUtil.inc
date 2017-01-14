@@ -28,7 +28,7 @@ stock ShowTextDrawForPlayer(const playerid, const {PlayerText,Text}:textDraw, co
 		if(timeToDisplayInMs >= 1)
 		{
 			SetTimerEx(
-				"HideTextDrawForPlayerPub",
+				"@HideTextDrawForPlayer",
 				timeToDisplayInMs,
 				false,
 				"dd",
@@ -57,7 +57,7 @@ stock ShowTextDrawForAll(const Text:textDraw, const timeToDisplayInMs = 0)
 
 	if(timeToDisplayInMs >= 1)
 	{
-		SetTimerEx("HideTextDrawForAllPub", timeToDisplayInMs, false, "d", textDraw);
+		SetTimerEx("@HideTextDrawForAll", timeToDisplayInMs, false, "d", textDraw);
 	}
 }
 
@@ -99,8 +99,8 @@ stock HideTextDrawForPlayer(const playerid, const {PlayerText,Text}:textDraw, co
 	}
 }
 
-forward HideTextDrawForPlayerPub(const playerid, const {PlayerText,Text}:textDraw);
-public HideTextDrawForPlayerPub(const playerid, const {PlayerText,Text}:textDraw)
+forward @HideTextDrawForPlayer(const playerid, const {PlayerText,Text}:textDraw);
+@HideTextDrawForPlayer(const playerid, const {PlayerText,Text}:textDraw)
 {
 	HideTextDrawForPlayer(playerid, textDraw);
 }
@@ -110,7 +110,7 @@ stock HideTextDrawForAll(const Text:textDraw, const timeToWaitBeforeHidingInMs =
 	if(timeToWaitBeforeHidingInMs >= 1)
 	{
 		SetTimerEx(
-			"HideTextDrawForAllPub",
+			"@HideTextDrawForAll",
 			timeToWaitBeforeHidingInMs,
 			false,
 			"d",
@@ -122,8 +122,8 @@ stock HideTextDrawForAll(const Text:textDraw, const timeToWaitBeforeHidingInMs =
 	}
 }
 
-forward HideTextDrawForAllPub(const Text:textDraw);
-public HideTextDrawForAllPub(const Text:textDraw)
+forward @HideTextDrawForAll(const Text:textDraw);
+@HideTextDrawForAll(const Text:textDraw)
 {
 	HideTextDrawForAll(Text:textDraw);
 }
